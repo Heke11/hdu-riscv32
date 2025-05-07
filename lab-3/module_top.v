@@ -32,11 +32,11 @@ module module_top(
     wire [31:0] A;
     wire [31:0] B;
     wire [31:0] F;
-    //µ÷ÓÃ¼Ä´æÆ÷AºÍ¼Ä´æÆ÷B
+    //è°ƒç”¨å¯„å­˜å™¨Aå’Œå¯„å­˜å™¨B
     module_register regA(.clk(clk_A),.in(in),.rst_n(rst_n),.out(A));
     module_register regB(.clk(clk_B),.in(in),.rst_n(rst_n),.out(B));
     module_register regF(.clk(clk_F),.in(F),.rst_n(rst_n),.out(result_F));
-    //µ÷ÓÃ¶à¹¦ÄÜALUÄ£¿é£¨°üÀ¨AÓëBµÄÔËËã£¬ºÍ±êÖ¾Î»µÄÉú³É£©
+    //è°ƒç”¨å¤šåŠŸèƒ½ALUæ¨¡å—ï¼ˆåŒ…æ‹¬Aä¸Bçš„è¿ç®—ï¼Œå’Œæ ‡å¿—ä½çš„ç”Ÿæˆï¼‰
     module_alu alu(A,B,in[3:0],F,Flags[0],Flags[1],Flags[2],Flags[3]);
     
 
@@ -61,14 +61,14 @@ module module_alu(
     reg Flags[3:0];
     // 0000:A+B
     // 0001:A<<B
-    // 0010:ÓĞ·ûºÅÊı±È½Ï(A<B) ?1 :0
-    // 0011:ÎŞ·ûºÅÊı±È½Ï(A<B) ? 1 : 0
+    // 0010:æœ‰ç¬¦å·æ•°æ¯”è¾ƒ(A<B) ?1 :0
+    // 0011:æ— ç¬¦å·æ•°æ¯”è¾ƒ(A<B) ? 1 : 0
     // 0100:A^B
-    // 0101:Âß¼­ÓÒÒÆ:A<<<B£¬¸ßÎ»²¹0
-    // 0110:°´Î»»ò:A | B
+    // 0101:é€»è¾‘å³ç§»:A<<<Bï¼Œé«˜ä½è¡¥0
+    // 0110:æŒ‰ä½æˆ–:A | B
     // 0111: A & B
     // 1000:A-B
-    // 1101:ËãÊıÓÒÒÆA>>B
+    // 1101:ç®—æ•°å³ç§»A>>B
     always@(*)begin
     sum = 32'b0;
     case(ALU_OP)
@@ -124,6 +124,7 @@ module module_register(
     assign out = temp_reg;
 endmodule
 
+// æ•°ç ç®¡éƒ¨åˆ†
 //module ShowNum(
 //	input clk_25M,
 //	input [31:0] F,
